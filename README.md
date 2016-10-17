@@ -68,10 +68,11 @@ where
 
 Currently DEFY collection includes:
 
-#### [Myths]()
-+ [goto is fastest]():
-  + [goto if select comparison 1]()
-  + [goto if select comparison 2]()
+#### [Myths](https://github.com/szaghi/DEFY/tree/master/src)
++ [goto is fastest](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest):
+  + [goto if select comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_1);
+  + [goto if select comparison 2](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_2);
++ any new myth is more than welcome, feel free to open a [new issue](https://github.com/szaghi/DEFY/issues) or create a [pull request](https://github.com/szaghi/DEFY/pulls).
 
 Go to [Top](#top)
 
