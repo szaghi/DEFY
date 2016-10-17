@@ -37,15 +37,34 @@ DEFY collection is organized by means of subdirectories of `src` home. That is:
 ```shell
 → tree src/
 src/
-└── goto_is_fastest
-    ├── goto_if_select_comparison_1
-    │   ├── defy.f90
-    │   ├── README.md
-    │   ├── run_gnu_optimized.sh
-    │   ├── run_gnu.sh
-    │   ├── run_intel_optimized.sh
-    │   └── run_intel.sh
-    ├── goto_if_select_comparison_2
+├── abstraction_has_overhead
+│   ├── abstract_ood_1
+│   │   ├── defy.f90
+│   │   ├── README.md
+│   │   ├── run_gnu_optimized.sh
+│   │   ├── run_gnu.sh
+│   │   ├── run_intel_optimized.sh
+│   │   └── run_intel.sh
+│   └── README.md
+├── goto_is_fastest
+│   ├── goto_if_select_comparison_1
+│   │   ├── defy.f90
+│   │   ├── README.md
+│   │   ├── run_gnu_optimized.sh
+│   │   ├── run_gnu.sh
+│   │   ├── run_intel_optimized.sh
+│   │   └── run_intel.sh
+│   ├── goto_if_select_comparison_2
+│   │   ├── defy.f90
+│   │   ├── i.f90
+│   │   ├── README.md
+│   │   ├── run_gnu_optimized.sh
+│   │   ├── run_gnu.sh
+│   │   ├── run_intel_optimized.sh
+│   │   └── run_intel.sh
+│   └── README.md
+└── powers_naive_definitions_have_overhead
+    ├── powers_1
     │   ├── defy.f90
     │   ├── README.md
     │   ├── run_gnu_optimized.sh
@@ -69,9 +88,13 @@ where
 Currently DEFY collection includes:
 
 #### [Myths](https://github.com/szaghi/DEFY/tree/master/src)
++ [abstraction has overhead](https://github.com/szaghi/DEFY/tree/master/src/abstraction_has_overhead):
+  + [abstract OOD 1](https://github.com/szaghi/DEFY/tree/master/src/abstraction_has_overhead/abstract_ood_1):
 + [goto is fastest](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest):
   + [goto if select comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_1);
   + [goto if select comparison 2](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_2);
++ [powers naive definitions have overhead](https://github.com/szaghi/DEFY/tree/master/src/powers_naive_definitions_have_overhead):
+  + [powers 1](https://github.com/szaghi/DEFY/tree/master/src/powers_naive_definitions_have_overhead/powers_1):
 + any new myth is more than welcome, feel free to open a [new issue](https://github.com/szaghi/DEFY/issues) or create a [pull request](https://github.com/szaghi/DEFY/pulls).
 
 Go to [Top](#top)
