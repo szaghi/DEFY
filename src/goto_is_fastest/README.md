@@ -64,6 +64,7 @@ The presupposed `goto` higher performance is a **myth** nowadays. Moreover, `got
 
 DEFY provides the following tests for this myth demystification:
 + [goto if select comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_1);
-+ [goto if select comparison 2](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_2).
++ [goto if select comparison 2](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_2);
++ [goto if block comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_block_comparison_1).
 
 See their README.md to see the results obtained.
