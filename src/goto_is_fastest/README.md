@@ -4,7 +4,7 @@
 
 #### Myth example
 
-The myth states that
+The myth states that for a genric (possible randomic) select value, the `goto`-based branching-flow
 
 ```fortran
 goto (10, 20, 30), selector
@@ -18,7 +18,7 @@ goto 40
 40 continue
 ```
 
-is compiled into a **faster** branching-flow than
+is compiled into a **faster** selector than
 
 ```fortran
 select case(selector)
@@ -41,7 +41,14 @@ elseif (selector==3)
 end if
 ```
 
-The myth originates from the old-good days when other branching-flow models (e.g. `if elseif` and `select case`) were added to the language (the early Fortran 90 implementations) alongside `goto`: *probably* the early compilers implementations supporting the *new* (for those days) branching models were not able to optimized the compiled selection based on the models as well as they did for the very-well supported (computed) `goto` model.
+The myth originates from the old-good days when other branching-flow models (e.g. `if elseif` and `select case`) were added to the language (the early Fortran 90 implementations) alongside `goto`: *probably* the early compilers implementations supporting the *new* (for those days) branching models were not able to optimized the compiled selection based on that models as well as they did for the very-well supported (computed) `goto` model.
+
+#### Variants
+
+The simple branching-flow afore described is analyzed for also some variants:
+
++ *flushed* branching-flow: the selector is used to find only the first worker to call, but also all other subsequent workers are called; this is intended to flavor `goto` that follow this bias without the need of *nested checks*;
++ *probability-ordered* branching-flow: the selector values are (pre) ordered into a list from the most probable (to be called) selector value to the most improbable; this is intended to help the optimizer to guess (e.g. pre-fetching) the next most probable branch.
 
 ### Demystified
 
@@ -63,8 +70,9 @@ The presupposed `goto` higher performance is a **myth** nowadays. Moreover, `got
 ### DEFY Tests
 
 DEFY provides the following tests for this myth demystification:
-+ [goto if select comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_1);
-+ [goto if select comparison 2](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_2);
-+ [goto if block comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_block_comparison_1).
++ [goto if select comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_1): the baseline test;
++ [goto if select comparison 2](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_2): a variant of the baseline test proposed by FortranFan;
++ [goto if select comparison 3](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_3): the baseline variation using pre-ordered most-probable selector values list;
++ [goto if block comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_block_comparison_1): the baseline variation with *flushed flow* bias.
 
 See their README.md to see the results obtained.

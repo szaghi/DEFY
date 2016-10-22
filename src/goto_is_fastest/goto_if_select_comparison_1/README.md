@@ -1,6 +1,10 @@
 ### Goto-if elseif-select case performance comparison, test 1
 
-This test compare (computed) `goto` with `if elseif` and `select case` branching-flow constructs. The selector for the branching-jump is computed pseudo-randomically and the *work* done inside the *workers* called by each branch is not uniform.
+This test compare (computed) `goto` with `if elseif` and `select case` branching-flow constructs.
+
+> The selector for the branching-jump is computed pseudo-randomically.
+
+> The *work* done inside the *workers* called by each branch is not uniform rather it depends on keywords value.
 
 ### Run test
 
@@ -13,9 +17,9 @@ Four bash scripts are provided to run the test:
 
 ### Results obtained
 
-|Compiler|Optimizations|Architecture                                         | goto      | if elseif | select case |
-|--------|-------------|-----------------------------------------------------|-----------|-----------|-------------|
-| GNU    |   yes       |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.3852^10-4|0.3856^10-4| 0.3857^10-4 |
-| GNU    |   no        |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.5788^10-3|0.5778^10-3| 0.5783^10-3 |
-| Intel  |   yes       |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.3896^10-4|0.3913^10-4| 0.3905^10-4 |
-| Intel  |   no        |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.5796^10-3|0.5785^10-3| 0.5810^10-3 |
+|Compiler       |Optimizations|Architecture                                         | goto      | if elseif | select case |
+|---------------|-------------|-----------------------------------------------------|-----------|-----------|-------------|
+| GNU (6.2.0)   | -O3         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.3852^10-4|0.3856^10-4| 0.3857^10-4 |
+| GNU (6.2.0)   | -Og         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.5788^10-3|0.5778^10-3| 0.5783^10-3 |
+| Intel (16.0.3)| -O3         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.3896^10-4|0.3913^10-4| 0.3905^10-4 |
+| Intel (16.0.3)| -O0         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.5796^10-3|0.5785^10-3| 0.5810^10-3 |
