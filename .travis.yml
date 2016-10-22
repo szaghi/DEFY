@@ -1,0 +1,51 @@
+language: generic
+
+sudo: false
+
+cache:
+  apt: true
+  pip: true
+  directories:
+    - $HOME/.cache/pip
+    - $HOME/.local
+
+addons:
+  apt:
+    sources:
+      - ubuntu-toolchain-r-test
+    packages:
+      - gfortran-6
+      - binutils
+      - python-pip
+
+env:
+  global:
+    - RUNALL="scripts/run_all_gnu_optimized.sh"
+
+before_install:
+  - git submodule update --init --recursive
+
+install:
+  - |
+    if [[ ! -d "$HOME/.local/bin" ]]; then
+      mkdir "$HOME/.local/bin"
+    fi
+  - export PATH="$HOME/.local/bin:$PATH"
+  - export FC=/usr/bin/gfortran-6
+  - ln -fs /usr/bin/gfortran-6 "$HOME/.local/bin/gfortran" && gfortran --version
+  - ls -l /usr/bin/gfortran-6
+  - ln -fs /usr/bin/gcov-6 "$HOME/.local/bin/gcov" && gcov --version
+
+script:
+  - $RUNALL
+
+deploy:
+  provider: releases
+  api_key:
+    secure: 3YGg6TUgjWyn/ExsSJNCUiEmIBXjLgffeKYwzc6CB+3FOPUU60n5IoVATw2JNwseQfGaQgzNqv4J1xhvDVxc1bkJeH8usKF9dmsCXgI0tSMjEVer6qqt1rcT9lbaSav44uNWhC8OH6Y3b5gIZpxFyGkooWURZ0rEAVQWyDByEcQnoLhiPx4SVd+hvRaP56WUIu3uWUIBk8EOO4WGO7Og5IPJ9NwVuNQixQAp/iZ9ckld0t6hoSVdqWZjxprBkKwkeGAZjyhPWx2BsBv1/Xnf0AZ6QwG5uB3mv7md9aLLcepqySxyeiDsmJerjys+odlbnKw1eziXmtLPC1OWYeswP+mcF3o5reXA1VN9TOlPQxjWAbp+cLt90YJ+jJeP7b1fae+YjSeIGxryz9KWCRmD7cR2qiNmeLhQixrltIB7pay31cHecm2+gVCsRRU9lr68qKeC7Uj4i70tPl/jJNNu/HUeGttCfupQEiCe9Rae5APv/rmAPRmfvlkCX0C7jW6cDqINaha3Nvxr3zZ+p0a9FMaozcY+5589O2dnqQc+pfmPTtYPtH4yS9K+ijs1tNJoKWOqSlb8pqOG7BeTcNNiiW5E2eWA9esWofp0IvSArAxVrtsVJZU96Cbs+zFlQmBq0zBcoRrpFxvCX9tYji30VWXo5JjK28XEsTOU7g5uYwI=
+  file: 
+    - DEFY-travis-tests.tar.gz
+  skip_cleanup: true
+  overwrite: true
+  on:
+    tags: true
