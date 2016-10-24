@@ -15,9 +15,9 @@ Four bash scripts are provided to run the test:
 
 ### Results obtained
 
-|Compiler|Optimizations|Architecture                                         | non abstract| abstract  |
-|--------|-------------|-----------------------------------------------------|-------------|-----------|
-| GNU    |   yes       |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|20.099       |23.057     |
-| GNU    |   no        |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|21.052       |20.365     |
-| Intel  |   yes       |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|11.429       |13.697     |
-| Intel  |   no        |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|28.486       |21.943     |
+|Compileri (target)   |Optimizations|Architecture                                         | non abstract| abstract  |
+|---------------------|-------------|-----------------------------------------------------|-------------|-----------|
+| GNU 6.2.1 (64bit)   | -O3         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|20.099       |23.057     |
+| GNU 6.2.1 (64bit)   | -Og         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|21.052       |20.365     |
+| Intel 16.0.3 (64bit)| -O3         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|11.429       |13.697     |
+| Intel 16.0.3 (64bit)| -O0         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|28.486       |21.943     |

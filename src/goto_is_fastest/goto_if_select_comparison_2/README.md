@@ -15,7 +15,7 @@ Four bash scripts are provided to run the test:
 
 ### Results obtained
 
-|Compiler       |Optimizations|Architecture                                      | goto      |select case |
-|---------------|-------------|--------------------------------------------------|-----------|------------|
-| Intel (16.0.3)| -O3         |Intel Core m5-6Y54@1.10GHz, 4GB RAM, x86_64 Ubuntu|2.0460^10-3|2.0394^10-3 |
-| Intel (16.0.3)| -O0         |Intel Core m5-6Y54@1.10GHz, 4GB RAM, x86_64 Ubuntu|3.4972^10-3|4.0245^10-3 |
+|Compiler (target)    |Optimizations|Architecture                                      | goto      |select case |
+|---------------------|-------------|--------------------------------------------------|-----------|------------|
+| Intel 16.0.3 (64bit)| -O3         |Intel Core m5-6Y54@1.10GHz, 4GB RAM, x86_64 Ubuntu|2.0460^10-3|2.0394^10-3 |
+| Intel 16.0.3 (64bit)| -O0         |Intel Core m5-6Y54@1.10GHz, 4GB RAM, x86_64 Ubuntu|3.4972^10-3|4.0245^10-3 |
