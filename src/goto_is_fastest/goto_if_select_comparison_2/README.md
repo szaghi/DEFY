@@ -1,4 +1,4 @@
-### Goto-if elseif-select case performance comparison, test 1
+### Goto-if elseif-select case performance comparison, test 2
 
 This test compare (computed) `goto` with `select case` branching-flow constructs.
 
