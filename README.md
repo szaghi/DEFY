@@ -96,6 +96,7 @@ Currently DEFY collection includes:
   + [goto if select comparison 3](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_3);
   + [goto if select comparison 4](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_4);
   + [goto if select comparison 5](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_5);
+  + [goto if select comparison 6](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_6);
   + [goto if block comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_block_comparison_1);
 + [powers naive definitions have overhead](https://github.com/szaghi/DEFY/tree/master/src/powers_naive_definitions_have_overhead):
   + [powers 1](https://github.com/szaghi/DEFY/tree/master/src/powers_naive_definitions_have_overhead/powers_1):

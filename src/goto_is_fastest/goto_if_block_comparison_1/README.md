@@ -54,4 +54,4 @@ Four bash scripts are provided to run the test:
 | Intel 16.0.3 (64bit)| -O3         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.5228^10-4|0.5237^10-4|0.5237^10-4|
 | Intel 16.0.3 (64bit)| -O0         |Intel Xeon X5650@2.67GHz, 24GB RAM, x86_64 Arch Linux|0.9449^10-3|0.9550^10-3|0.9550^10-3|
 | GNU 7.0.0 (32bit)   | -??         |Intel Core i5-2400@3.10GHz, 4GB RAM, Windows 64-bit  |0.1357^10-3|0.1356^10-3|0.1356^10-3|
-| Intel 17.0.0 (64bit)| -??         |Intel Core i5-2400@3.10GHz, 4GB RAM, Windows 64-bit  |0.4650^10-4|0.4400^10-4|0.4400^10-4|
+| Intel 17.0.0 (64bit)| -O2         |Intel Core i5-2400@3.10GHz, 4GB RAM, Windows 64-bit  |0.4650^10-4|0.4400^10-4|0.4400^10-4|

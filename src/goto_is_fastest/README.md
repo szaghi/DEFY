@@ -75,6 +75,7 @@ DEFY provides the following tests for this myth demystification:
 + [goto if select comparison 3](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_3): a variant of the baseline test using pre-ordered most-probable selector values list;
 + [goto if select comparison 4](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_4): a variant of the baseline test using 20 branches conditions instead of only 4;
 + [goto if select comparison 5](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_5): a variant of the baseline test using 20 branches conditions instead of only 4 and with separated loops for each branching-flow;
++ [goto if select comparison 6](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_5): a variant of the goto test 5 that can be compiled with also an old Compaq Visual Fortran compiler;
 + [goto if block comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_block_comparison_1): the baseline variation with *flushed flow* bias.
 
 See their README.md to see the results obtained.
