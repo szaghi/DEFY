@@ -90,6 +90,8 @@ Currently DEFY collection includes:
 #### [Myths](https://github.com/szaghi/DEFY/tree/master/src)
 + [abstraction has overhead](https://github.com/szaghi/DEFY/tree/master/src/abstraction_has_overhead):
   + [abstract OOD 1](https://github.com/szaghi/DEFY/tree/master/src/abstraction_has_overhead/abstract_ood_1):
++ [array syntax has overhead](https://github.com/szaghi/DEFY/tree/master/src/array_syntax_has_overhead):
+  + [array resize 1](https://github.com/szaghi/DEFY/tree/master/src/array_resize_1):
 + [goto is fastest](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest):
   + [goto if select comparison 1](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_1);
   + [goto if select comparison 2](https://github.com/szaghi/DEFY/tree/master/src/goto_is_fastest/goto_if_select_comparison_2);
