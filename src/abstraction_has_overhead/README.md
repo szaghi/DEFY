@@ -4,7 +4,7 @@
 
 ### Not completely demystified
 
-The tests provides seem to confirm the existence of relevant overhead in some circumstances:
+The tests provided seem to confirm the existence of relevant overhead in some circumstances:
 
 + for Intel Fortran compiler the tests reveal:
   + the abstract OOD type is 20% **slower** with respect the non abstract OOD when optimizations are enabled;
