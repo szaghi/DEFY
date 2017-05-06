@@ -18,6 +18,7 @@ module arrays
          generic :: operator(+) => add_automatic
          procedure, pass(lhs) :: assign_automatic
          generic :: assignment(=) => assign_automatic
+         procedure, pass(lhs) :: add_automatic_fast
    endtype array_automatic
 
    type :: array_allocatable
@@ -28,6 +29,7 @@ module arrays
          generic :: operator(+) => add_allocatable
          procedure, pass(lhs) :: assign_allocatable
          generic :: assignment(=) => assign_allocatable
+         procedure, pass(lhs) :: add_allocatable_fast
    endtype array_allocatable
 
    type, abstract :: array_polymorphic_abstract
@@ -37,6 +39,7 @@ module arrays
          procedure(assign_interface),      pass(lhs), deferred :: assign_polymorphic
          procedure(assign_real_interface), pass(lhs), deferred :: assign_polymorphic_real
          generic :: assignment(=) => assign_polymorphic, assign_polymorphic_real
+         procedure(add_fast_interface), pass(lhs), deferred :: add_polymorphic_fast
    endtype array_polymorphic_abstract
 
    type, extends(array_polymorphic_abstract) :: array_polymorphic
@@ -46,6 +49,7 @@ module arrays
          procedure, pass(lhs) :: add_polymorphic
          procedure, pass(lhs) :: assign_polymorphic
          procedure, pass(lhs) :: assign_polymorphic_real
+         procedure, pass(lhs) :: add_polymorphic_fast
    endtype array_polymorphic
 
    abstract interface
@@ -67,6 +71,13 @@ module arrays
       class(array_polymorphic_abstract), intent(inout) :: lhs
       real(real64),                      intent(in)    :: rhs(1:)
       endsubroutine assign_real_interface
+
+      pure subroutine add_fast_interface(lhs, rhs, opr)
+      import :: array_polymorphic_abstract
+      class(array_polymorphic_abstract), intent(in)    :: lhs
+      class(array_polymorphic_abstract), intent(in)    :: rhs
+      class(array_polymorphic_abstract), intent(inout) :: opr
+      endsubroutine add_fast_interface
    endinterface
 
    contains
@@ -86,6 +97,14 @@ module arrays
       lhs%x = rhs
       endsubroutine assign_automatic
 
+      pure subroutine add_automatic_fast(lhs, rhs, opr)
+      class(array_automatic), intent(in)    :: lhs
+      type(array_automatic),  intent(in)    :: rhs
+      real(real64),           intent(inout) :: opr(1:lhs%n)
+
+      opr = lhs%x + rhs%x
+      endsubroutine add_automatic_fast
+
       pure function add_allocatable(lhs, rhs) result(opr)
       class(array_allocatable), intent(in) :: lhs
       type(array_allocatable),  intent(in) :: rhs
@@ -101,6 +120,14 @@ module arrays
       lhs%n = size(rhs, dim=1)
       lhs%x = rhs
       endsubroutine assign_allocatable
+
+      pure subroutine add_allocatable_fast(lhs, rhs, opr)
+      class(array_allocatable),  intent(in)    :: lhs
+      type(array_allocatable),   intent(in)    :: rhs
+      real(real64), allocatable, intent(inout) :: opr(:)
+
+      opr = lhs%x + rhs%x
+      endsubroutine add_allocatable_fast
 
       pure function add_polymorphic(lhs, rhs) result(opr)
       class(array_polymorphic),          intent(in)  :: lhs
@@ -135,6 +162,20 @@ module arrays
       lhs%n = size(rhs, dim=1)
       lhs%x = rhs
       endsubroutine assign_polymorphic_real
+
+      pure subroutine add_polymorphic_fast(lhs, rhs, opr)
+      class(array_polymorphic),          intent(in)    :: lhs
+      class(array_polymorphic_abstract), intent(in)    :: rhs
+      class(array_polymorphic_abstract), intent(inout) :: opr
+
+      select type(opr)
+      class is(array_polymorphic)
+         select type(rhs)
+         class is(array_polymorphic)
+            opr%x = lhs%x + rhs%x
+         endselect
+      endselect
+      endsubroutine add_polymorphic_fast
 endmodule arrays
 
 program defy
@@ -162,7 +203,7 @@ program defy
    integer                   :: i
 
    N = 100000
-   Nn = N/100
+   Nn = N/10
    a_intrinsic   = [(real(i, kind=real64), i=1,N)]
    b_intrinsic   = [(real(i, kind=real64), i=1,N)]
    a_automatic   = [(real(i, kind=real64), i=1,N)]
@@ -178,7 +219,7 @@ program defy
    enddo
    call system_clock(tic_toc(2), count_rate)
    intrinsic_time = (tic_toc(2) - tic_toc(1)) / real(count_rate, kind=real64)
-   print*, 'intrinsic: ', intrinsic_time
+   print '(A18,F8.5)', 'intrinsic: ', intrinsic_time
 
    call system_clock(tic_toc(1), count_rate)
    do i=1, Nn
@@ -186,7 +227,15 @@ program defy
    enddo
    call system_clock(tic_toc(2), count_rate)
    time = (tic_toc(2) - tic_toc(1)) / real(count_rate, kind=real64)
-   print*, 'automatic: ', time, ' + %(intrinsic): ', 100._real64 - intrinsic_time / time * 100
+   print '(A18,F8.5,A17,F8.3)', 'automatic: ', time, ' + %(intrinsic): ', 100._real64 - intrinsic_time / time * 100
+
+   call system_clock(tic_toc(1), count_rate)
+   do i=1, Nn
+     call a_automatic%add_automatic_fast(rhs=b_automatic, opr=c_automatic%x)
+   enddo
+   call system_clock(tic_toc(2), count_rate)
+   time = (tic_toc(2) - tic_toc(1)) / real(count_rate, kind=real64)
+   print '(A18,F8.5,A17,F8.3)', 'automatic fast: ', time, ' + %(intrinsic): ', 100._real64 - intrinsic_time / time * 100
 
    call system_clock(tic_toc(1), count_rate)
    do i=1, Nn
@@ -194,7 +243,15 @@ program defy
    enddo
    call system_clock(tic_toc(2), count_rate)
    time = (tic_toc(2) - tic_toc(1)) / real(count_rate, kind=real64)
-   print*, 'allocatable: ', time, ' + %(intrinsic): ', 100._real64 - intrinsic_time / time * 100
+   print '(A18,F8.5,A17,F8.3)', 'allocatable: ', time, ' + %(intrinsic): ', 100._real64 - intrinsic_time / time * 100
+
+   call system_clock(tic_toc(1), count_rate)
+   do i=1, Nn
+     call a_allocatable%add_allocatable_fast(rhs=b_allocatable, opr=c_allocatable%x)
+   enddo
+   call system_clock(tic_toc(2), count_rate)
+   time = (tic_toc(2) - tic_toc(1)) / real(count_rate, kind=real64)
+   print '(A18,F8.5,A17,F8.3)', 'allocatable fast: ', time, ' + %(intrinsic): ', 100._real64 - intrinsic_time / time * 100
 
 #ifndef __GFORTRAN__
    call system_clock(tic_toc(1), count_rate)
@@ -203,6 +260,14 @@ program defy
    enddo
    call system_clock(tic_toc(2), count_rate)
    time = (tic_toc(2) - tic_toc(1)) / real(count_rate, kind=real64)
-   print*, 'polymorphic: ', time, ' + %(intrinsic): ', 100._real64 - intrinsic_time / time * 100
+   print '(A18,F8.5,A17,F8.3)', 'polymorphic: ', time, ' + %(intrinsic): ', 100._real64 - intrinsic_time / time * 100
 #endif
+
+   call system_clock(tic_toc(1), count_rate)
+   do i=1, Nn
+     call a_polymorphic%add_polymorphic_fast(rhs=b_polymorphic, opr=c_polymorphic)
+   enddo
+   call system_clock(tic_toc(2), count_rate)
+   time = (tic_toc(2) - tic_toc(1)) / real(count_rate, kind=real64)
+   print '(A18,F8.5,A17,F8.3)', 'polymorphic fast: ', time, ' + %(intrinsic): ', 100._real64 - intrinsic_time / time * 100
 end program defy
